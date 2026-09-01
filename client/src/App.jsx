@@ -4,6 +4,7 @@ import { api, getToken, setToken } from './api/client'
 import AuthForm from './components/AuthForm'
 import ApplicationForm from './components/ApplicationForm'
 import ApplicationList from './components/ApplicationList'
+import ThemeToggle from './components/ThemeToggle'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -45,27 +46,38 @@ function App() {
     setApplications([])
   }
 
-  if (loading) {
-    return <p className="status-message">Loading…</p>
-  }
-
   return (
     <div className="app">
-      <header>
-        <h1>Job Application Tracker</h1>
-        {user && (
-          <div className="user-bar">
-            <span>{user.email}</span>
-            <button type="button" onClick={handleLogout}>Log out</button>
+      <header className="masthead">
+        <p className="masthead-kicker">Personnel File · Confidential</p>
+        <div className="masthead-row">
+          <div className="brand">
+            <span className="brand-mark" aria-hidden="true">JT</span>
+            <h1>Job Application Tracker</h1>
           </div>
-        )}
+          <div className="masthead-actions">
+            <ThemeToggle />
+            {user && (
+              <div className="user-tab">
+                <span>{user.email}</span>
+                <button type="button" onClick={handleLogout}>Log out</button>
+              </div>
+            )}
+          </div>
+        </div>
       </header>
+
       <main>
-        {!user ? (
+        {loading ? (
+          <p className="status-message loading">Retrieving file</p>
+        ) : !user ? (
           <AuthForm onAuthenticated={handleAuthenticated} />
         ) : (
           <>
             <ApplicationForm onCreated={(app) => setApplications((prev) => [app, ...prev])} />
+            <p className="ledger-summary">
+              {applications.length} {applications.length === 1 ? 'file' : 'files'} on record
+            </p>
             <ApplicationList applications={applications} onChange={setApplications} />
           </>
         )}

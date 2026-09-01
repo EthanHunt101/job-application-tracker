@@ -1,83 +1,454 @@
 .app {
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 2.5rem 1.25rem 4rem;
 }
 
-header {
+/* ---------- Masthead ---------- */
+
+.masthead {
+  margin-bottom: 2.5rem;
+  animation: reveal 0.5s ease both;
+}
+
+.masthead-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.masthead-row {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 3px double var(--rule-strong);
 }
 
-.user-bar {
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  flex-shrink: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  transform: rotate(-4deg);
+  box-shadow: 3px 3px 0 var(--shadow);
+}
+
+.brand h1 {
+  font-size: 1.85rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+
+  @media (max-width: 520px) {
+    font-size: 1.4rem;
+  }
+}
+
+.masthead-actions {
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
 
-.card {
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1.25rem;
-  margin-bottom: 1.5rem;
-  text-align: left;
+.theme-toggle {
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border-radius: 999px;
+  font-size: 1.1rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
 }
 
-.card label {
+.user-tab {
   display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  margin-bottom: 0.75rem;
-  font-size: 0.9rem;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  background: var(--paper-raised);
+  border: 1px solid var(--rule);
+  padding: 0.4rem 0.5rem 0.4rem 0.75rem;
+  border-radius: 3px;
 }
 
-.card input,
-.card select {
-  font: inherit;
-  padding: 0.4rem 0.5rem;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  background: transparent;
-  color: inherit;
-}
+/* ---------- Buttons & form controls ---------- */
 
 button {
-  font: inherit;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  background: transparent;
-  color: inherit;
+  font-weight: 500;
+  font-size: 0.85rem;
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 3px;
+  background: var(--paper-raised);
+  color: var(--ink);
   cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
 }
 
-button.link {
-  border: none;
-  text-decoration: underline;
-  padding: 0.5rem 0;
+button:hover {
+  background: var(--paper);
+  box-shadow: 2px 2px 0 var(--shadow);
+  transform: translate(-1px, -1px);
+}
+
+button:active {
+  transform: translate(0, 0);
+  box-shadow: none;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+  filter: brightness(1.08);
+}
+
+.btn-block {
   display: block;
+  width: 100%;
+  margin-top: 0.4rem;
+  text-align: center;
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 0.4rem 0;
+}
+
+.btn-ghost:hover {
+  background: transparent;
+  box-shadow: none;
+  color: var(--ink);
+  transform: none;
+}
+
+.btn-close-file {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--stamp-rejected);
+  border-color: var(--rule);
+  padding: 0.35rem 0.6rem;
+}
+
+/* ---------- Cards (file folders) ---------- */
+
+.card {
+  background: var(--paper-raised);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1.5rem;
+  margin-bottom: 1.75rem;
+  text-align: left;
+  box-shadow: 4px 4px 0 var(--shadow);
+  animation: reveal 0.5s ease both;
+  animation-delay: 0.08s;
+}
+
+.card h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.card h2::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--accent);
+  display: inline-block;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+input,
+select {
+  font-size: 0.95rem;
+  letter-spacing: normal;
+  text-transform: none;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 3px;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+input:focus,
+select:focus {
+  border-color: var(--accent);
 }
 
 .error {
-  color: #d33;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--stamp-rejected);
+  background: color-mix(in srgb, var(--stamp-rejected) 12%, transparent);
+  border: 1px solid var(--stamp-rejected);
+  padding: 0.5rem 0.7rem;
+  border-radius: 3px;
+  margin-bottom: 1rem;
 }
 
-.status-message {
-  text-align: center;
-  margin-top: 3rem;
+/* ---------- Auth screen ---------- */
+
+.auth-shell {
+  max-width: 420px;
+  margin: 3rem auto 0;
+}
+
+.file-tabs {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: -1px;
+  position: relative;
+  z-index: 1;
+}
+
+.file-tab {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--rule);
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+  background: var(--paper);
+  color: var(--ink-soft);
+}
+
+.file-tab[aria-selected='true'] {
+  background: var(--paper-raised);
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: 0 -2px 0 var(--accent) inset;
+}
+
+.file-tab:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.auth-shell .card {
+  margin-bottom: 0;
+  border-top-left-radius: 0;
+}
+
+.field-hint {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+  text-transform: none;
+  letter-spacing: normal;
+  margin-top: 0.75rem;
+}
+
+/* ---------- Ledger summary ---------- */
+
+.ledger-summary {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: -0.75rem 0 1.25rem;
+}
+
+/* ---------- Application ledger (table) ---------- */
+
+.ledger {
+  overflow-x: auto;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 0.85rem;
 }
 
-th,
-td {
+thead th {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
   text-align: left;
-  padding: 0.5rem;
-  border-bottom: 1px solid var(--border);
+  padding: 0 0.6rem 0.6rem;
+  border-bottom: 2px solid var(--rule-strong);
+  font-weight: 500;
+}
+
+tbody tr {
+  animation: reveal 0.4s ease both;
+}
+
+tbody tr:nth-child(1) { animation-delay: 0.02s; }
+tbody tr:nth-child(2) { animation-delay: 0.06s; }
+tbody tr:nth-child(3) { animation-delay: 0.1s; }
+tbody tr:nth-child(4) { animation-delay: 0.14s; }
+tbody tr:nth-child(5) { animation-delay: 0.18s; }
+tbody tr:nth-child(n+6) { animation-delay: 0.2s; }
+
+td {
+  padding: 0.7rem 0.6rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: middle;
+}
+
+.case-no {
+  font-family: var(--font-mono);
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+}
+
+.company-cell {
+  font-weight: 600;
+}
+
+.company-cell a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted var(--rule-strong);
+}
+
+.role-cell {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.date-cell {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+/* Status stamp - a native <select> styled to look like an ink stamp,
+   color-coded per pipeline stage via the data-status attribute. */
+.stamp-select {
+  --stamp-color: var(--stamp-applied);
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--stamp-color);
+  background: color-mix(in srgb, var(--stamp-color) 14%, var(--paper));
+  border: 1.5px solid var(--stamp-color);
+  border-radius: 999px;
+  padding: 0.3rem 1.6rem 0.3rem 0.7rem;
+  cursor: pointer;
+  background-image: linear-gradient(45deg, transparent 50%, var(--stamp-color) 50%),
+    linear-gradient(135deg, var(--stamp-color) 50%, transparent 50%);
+  background-position: calc(100% - 0.9rem) center, calc(100% - 0.65rem) center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.stamp-select[data-status='applied'] { --stamp-color: var(--stamp-applied); }
+.stamp-select[data-status='oa'] { --stamp-color: var(--stamp-oa); }
+.stamp-select[data-status='phone_screen'] { --stamp-color: var(--stamp-phone); }
+.stamp-select[data-status='onsite'] { --stamp-color: var(--stamp-onsite); }
+.stamp-select[data-status='offer'] { --stamp-color: var(--stamp-offer); }
+.stamp-select[data-status='rejected'] {
+  --stamp-color: var(--stamp-rejected);
+  transform: rotate(-1.5deg);
+}
+
+/* ---------- Empty / loading states ---------- */
+
+.status-message {
+  text-align: center;
+  margin-top: 4rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+}
+
+.status-message.loading::after {
+  content: '_';
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.empty-state {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  border: 1px dashed var(--rule-strong);
+  border-radius: 4px;
+  padding: 1.5rem;
+  text-align: center;
 }

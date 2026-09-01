@@ -23,31 +23,57 @@ function AuthForm({ onAuthenticated }) {
     }
   }
 
+  function switchMode(next) {
+    setMode(next);
+    setError('');
+  }
+
   return (
-    <form onSubmit={handleSubmit} className="card">
-      <h2>{mode === 'login' ? 'Log in' : 'Sign up'}</h2>
-      {error && <p className="error">{error}</p>}
-      <label>
-        Email
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-      </label>
-      <label>
-        Password
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          minLength={8}
-        />
-      </label>
-      <button type="submit" disabled={loading}>
-        {loading ? 'Please wait…' : mode === 'login' ? 'Log in' : 'Sign up'}
-      </button>
-      <button type="button" className="link" onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}>
-        {mode === 'login' ? 'Need an account? Sign up' : 'Already have an account? Log in'}
-      </button>
-    </form>
+    <div className="auth-shell">
+      <div className="file-tabs" role="tablist">
+        <button
+          type="button"
+          role="tab"
+          className="file-tab"
+          aria-selected={mode === 'login'}
+          onClick={() => switchMode('login')}
+        >
+          Access file
+        </button>
+        <button
+          type="button"
+          role="tab"
+          className="file-tab"
+          aria-selected={mode === 'signup'}
+          onClick={() => switchMode('signup')}
+        >
+          Open new file
+        </button>
+      </div>
+
+      <form onSubmit={handleSubmit} className="card">
+        <h2>{mode === 'login' ? 'Access Case File' : 'Open a Case File'}</h2>
+        {error && <p className="error">{error}</p>}
+        <label>
+          Email
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        </label>
+        <label>
+          Password
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            minLength={8}
+          />
+        </label>
+        {mode === 'signup' && <p className="field-hint">Minimum 8 characters.</p>}
+        <button type="submit" className="btn-primary btn-block" disabled={loading}>
+          {loading ? 'Please wait…' : mode === 'login' ? 'Log in' : 'Create file'}
+        </button>
+      </form>
+    </div>
   );
 }
 
