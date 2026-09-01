@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const pool = require('../db');
+const requireAuth = require('../middleware/requireAuth');
 
 const router = express.Router();
 
@@ -73,6 +74,20 @@ router.post('/login', async (req, res) => {
 
     const token = signToken(user.id);
     res.json({ token, user: { id: user.id, email: user.email } });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Something went wrong' });
+  }
+});
+
+// GET /auth/me - returns the currently logged-in user, based on the JWT
+router.get('/me', requireAuth, async (req, res) => {
+  try {
+    const result = await pool.query('SELECT id, email, created_at FROM users WHERE id = $1', [req.userId]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.json({ user: result.rows[0] });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Something went wrong' });
