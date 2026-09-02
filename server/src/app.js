@@ -3,6 +3,7 @@ const cors = require('cors');
 const pool = require('./db');
 const authRoutes = require('./routes/auth');
 const applicationRoutes = require('./routes/applications');
+const reminderRoutes = require('./routes/reminders');
 
 const app = express();
 
@@ -20,5 +21,6 @@ app.get('/health', async (req, res) => {
 
 app.use('/auth', authRoutes);
 app.use('/applications', applicationRoutes);
+app.use('/reminders', reminderRoutes);
 
 module.exports = app;

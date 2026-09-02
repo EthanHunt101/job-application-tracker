@@ -1,6 +1,7 @@
 const express = require('express');
 const pool = require('../db');
 const requireAuth = require('../middleware/requireAuth');
+const { sendApplicationCreatedEmail } = require('../email');
 
 const router = express.Router();
 
@@ -45,6 +46,22 @@ router.post('/', async (req, res) => {
     );
 
     res.status(201).json({ application });
+
+    // Fire the confirmation email after responding - the user shouldn't have
+    // to wait on an email provider round-trip (or a provider outage) just to
+    // get their application saved. A failure here is logged, not surfaced to
+    // the client, since it's a side effect of creating the application, not
+    // part of what the request actually promises.
+    try {
+      const userResult = await pool.query('SELECT email FROM users WHERE id = $1', [req.userId]);
+      await sendApplicationCreatedEmail({
+        to: userResult.rows[0].email,
+        company: application.company,
+        role: application.role,
+      });
+    } catch (emailErr) {
+      console.error('Failed to send application-created email:', emailErr.message);
+    }
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Something went wrong' });
