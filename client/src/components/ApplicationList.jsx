@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import DatePicker from 'react-datepicker';
 import { api } from '../api/client';
+import { dateToInputValue, parseApiDate } from '../utils/date';
 
 const STATUSES = ['applied', 'oa', 'phone_screen', 'onsite', 'offer', 'rejected'];
 
@@ -23,6 +25,16 @@ function ApplicationList({ applications, onChange }) {
     setError('');
     try {
       const { application } = await api.updateApplication(app.id, { status });
+      onChange((prev) => prev.map((a) => (a.id === application.id ? application : a)));
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function handleDateChange(app, date) {
+    setError('');
+    try {
+      const { application } = await api.updateApplication(app.id, { date_applied: dateToInputValue(date) });
       onChange((prev) => prev.map((a) => (a.id === application.id ? application : a)));
     } catch (err) {
       setError(err.message);
@@ -87,11 +99,16 @@ function ApplicationList({ applications, onChange }) {
                 </select>
               </td>
               <td className="date-cell">
-                {new Date(app.date_applied).toLocaleDateString(undefined, {
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric',
-                })}
+                <DatePicker
+                  selected={parseApiDate(app.date_applied)}
+                  onChange={(date) => handleDateChange(app, date)}
+                  dateFormat="MMM d, yyyy"
+                  maxDate={new Date()}
+                  className="date-input date-input-compact"
+                  calendarClassName="dossier-datepicker"
+                  popperPlacement="bottom-end"
+                  aria-label={`Date applied for ${app.company}`}
+                />
               </td>
               <td>
                 <button

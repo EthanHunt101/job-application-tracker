@@ -420,6 +420,112 @@ td {
   transform: rotate(-1.5deg);
 }
 
+/* ---------- Date picker (react-datepicker, restyled to match the dossier) ---------- */
+
+.date-input {
+  width: 100%;
+}
+
+.date-input-compact {
+  width: 8.5rem;
+  font-size: 0.78rem;
+  padding: 0.35rem 0.5rem;
+}
+
+.react-datepicker-wrapper {
+  display: block;
+}
+
+.react-datepicker-popper {
+  z-index: 5;
+}
+
+.dossier-datepicker.react-datepicker {
+  font-family: var(--font-mono);
+  background: var(--paper-raised);
+  border: 1px solid var(--rule-strong);
+  border-radius: 4px;
+  box-shadow: 4px 4px 0 var(--shadow);
+  overflow: hidden;
+}
+
+/* The triangle/arrow lives under .react-datepicker-popper, one level above
+   where calendarClassName lands, so this can't be scoped to .dossier-datepicker -
+   harmless since this app only has one calendar style. */
+.react-datepicker__triangle {
+  display: none;
+}
+
+.dossier-datepicker .react-datepicker__header {
+  background: var(--paper-raised);
+  border-bottom: 1px solid var(--rule);
+  padding-top: 0.75rem;
+}
+
+.dossier-datepicker .react-datepicker__current-month {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+
+.dossier-datepicker .react-datepicker__day-names {
+  margin-top: 0.4rem;
+}
+
+.dossier-datepicker .react-datepicker__day-name {
+  color: var(--ink-soft);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  width: 1.9rem;
+}
+
+.dossier-datepicker .react-datepicker__month {
+  margin: 0.5rem 0.6rem 0.7rem;
+}
+
+.dossier-datepicker .react-datepicker__day {
+  width: 1.9rem;
+  line-height: 1.9rem;
+  color: var(--ink);
+  border-radius: 3px;
+}
+
+.dossier-datepicker .react-datepicker__day:hover {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.dossier-datepicker .react-datepicker__day--outside-month {
+  color: var(--ink-soft);
+  opacity: 0.5;
+}
+
+.dossier-datepicker .react-datepicker__day--today {
+  font-weight: 600;
+  box-shadow: inset 0 0 0 1px var(--rule-strong);
+}
+
+.dossier-datepicker .react-datepicker__day--selected,
+.dossier-datepicker .react-datepicker__day--keyboard-selected {
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+
+.dossier-datepicker .react-datepicker__day--disabled {
+  color: var(--ink-soft);
+  opacity: 0.35;
+}
+
+.dossier-datepicker .react-datepicker__navigation-icon::before {
+  border-color: var(--ink-soft);
+}
+
+.dossier-datepicker .react-datepicker__navigation:hover .react-datepicker__navigation-icon::before {
+  border-color: var(--accent);
+}
+
 /* ---------- Empty / loading states ---------- */
 
 .status-message {

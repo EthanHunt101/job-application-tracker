@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import 'react-datepicker/dist/react-datepicker.css'
 import './App.css'
 import { api, getToken, setToken } from './api/client'
 import AuthForm from './components/AuthForm'
